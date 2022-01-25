@@ -33,7 +33,7 @@ if config_env() == :prod do
   # want to use a different value for prod and you most likely don't want
   # to check this value into version control, so we use an environment
   # variable instead.
-  secret_key_base = "asfskjdgfnkalsdngoalkmklae"
+  secret_key_base = "1e5AzWWzU1KcbHUeAeZ2zslIL3dqbBQNTnlfy8vqMJXp3QtaeWbkhhDkssIeJC+y"
 
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
