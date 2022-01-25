@@ -35,8 +35,8 @@ if config_env() == :prod do
   # variable instead.
   secret_key_base = "1e5AzWWzU1KcbHUeAeZ2zslIL3dqbBQNTnlfy8vqMJXp3QtaeWbkhhDkssIeJC+y"
 
-  host = System.get_env("PHX_HOST") || "https://live-tictactoe.herokuapp.com"
-  port = String.to_integer(System.get_env("PORT") || "4000")
+  host = System.get_env("PHX_HOST") || "live-tictactoe.herokuapp.com"
+  port = String.to_integer(System.get_env("PORT") || "443")
 
   config :tictactoe, TictactoeWeb.Endpoint,
     url: [host: host, port: 443],
