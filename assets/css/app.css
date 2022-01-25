@@ -188,3 +188,17 @@
   height: 60px;
   color: #0069d9;
 }
+
+
+.splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  height: 400px;
+}
+
+.splash h1 {
+  font-weight: 700;
+  color: #0069d9;
+}

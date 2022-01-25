@@ -14,6 +14,13 @@ defmodule TictactoeWeb.Game.Index do
      })}
   end
 
+
+  def handle_event("play-again", _, socket) do
+    Lobby.join_lobby(self())
+    {:noreply, assign(socket, %{status: :looking})}
+  end
+
+
   def handle_event("start", _, socket) do
     Lobby.join_lobby(self())
     {:noreply, assign(socket, %{status: :looking})}

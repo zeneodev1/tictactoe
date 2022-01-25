@@ -1,5 +1,5 @@
 defmodule Tictactoe.Game do
-  use GenServer
+  use GenServer, restart: :transient
 
   @game __MODULE__
 
@@ -23,11 +23,12 @@ defmodule Tictactoe.Game do
         case check_win(squares, pos, type) do
           true ->
             PubSub.broadcast(Tictactoe.PubSub, state.game_id, {:gameover, squares, type})
-            {:noreply, %{state | squares: squares}}
-          false ->
+            {:stop, :normal, state}
+            false ->
             case check_draw(squares) do
               true ->
                 PubSub.broadcast(Tictactoe.PubSub, state.game_id, {:draw, squares})
+                {:stop, :normal, state}
               false ->
                 turn = opposite_turn(state.turn)
                 PubSub.broadcast(Tictactoe.PubSub, state.game_id, {:game_update, squares, turn})
@@ -94,13 +95,10 @@ defmodule Tictactoe.Game do
   def create_game(pid1, pid2) do
     token = generate_game_token()
 
-    pid =
-      DynamicSupervisor.start_child(
-        Tictactoe.GamesSupervisor,
-        {@game, %{squares: [:e, :e, :e, :e, :e, :e, :e, :e, :e], game_id: token, turn: :x}}
-      )
-
-    IO.inspect(pid)
+    DynamicSupervisor.start_child(
+      Tictactoe.GamesSupervisor,
+      {@game, %{squares: [:e, :e, :e, :e, :e, :e, :e, :e, :e], game_id: token, turn: :x}}
+    )
 
     send(pid1, {:game_ready, token, :x, :x})
     send(pid2, {:game_ready, token, :o, :x})

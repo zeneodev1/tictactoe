@@ -1,6 +1,16 @@
 
 <div class="game-container">
-  <div class="game">
+
+
+  <div>
+
+    <%= if @status == nil do %>
+    <div class="splash">
+      <h1>Welcome To</h1>
+      <h1>Tic Tac Toe</h1>
+    </div>
+    <% end %>
+
     <%= if @status == :looking do %>
     <div class="loading">
       <h2>Looking for another player</h2>
@@ -56,6 +66,8 @@
     </div>
     <% end %>
   </div>
+
+
   <%= if @status == nil do %>
     <button phx-click="start" class="control-btn">Start</button>
   <% end %>
@@ -66,6 +78,6 @@
     <button class="control-btn">Leave</button>
   <% end %>
   <%= if @status == :finished do %>
-    <button class="control-btn">Play again</button>
+    <button phx-click="play-again" class="control-btn">Play again</button>
   <% end %>
 </div>
